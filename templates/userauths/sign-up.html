@@ -1,4 +1,22 @@
-<form action="" method="POST">
-  {% csrf_token %} {{form.as_p}}
-  <button type="submit">Register!</button>
-</form>
+<h1>SIGN UP PAGE</h1>
+<h3>---------------------------------------------------</h3>
+
+{% if form.errors %}
+<div class="alert alert-danger">
+  <strong>ERROR</strong>
+</div>
+{% endif %}
+
+<div>
+  <form action="" method="POST">
+    {% csrf_token %} {{form.username}}
+    <div>{{form.email}}</div>
+    <div>{{form.password1}}</div>
+    <div>{{form.password2}}</div>
+    <button type="submit">Register!</button>
+  </form>
+</div>
+
+<div class = 'login-redirect'>
+    <p>Already have an account? <a href = 'page-login.html'>login</p>
+</div>
