@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'userauths',
     'jazzmin',
     'core',
     'django.contrib.admin',
@@ -141,3 +142,5 @@ JAZZMIN_SETTINGS = {
     'site_header': 'Finance app',
     'site_brand': 'Finance News'
 }
+
+AUTH_USER_MODEL = 'userauths.User'
