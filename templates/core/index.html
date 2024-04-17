@@ -1,0 +1,85 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}Home | Best Finance App{% endblock %}
+
+{% block content %}
+<div id="home-page">
+  <h1>Top Relevant Stocks</h1>
+  <div id="stocks-list" class="stocks-grid">
+    <!-- Example stock item with graph -->
+    <div class="stock-item">
+      <h2>AAPL</h2>
+      <p>Apple Inc.</p>
+      <div class="stock-chart-container">
+        <canvas id="stock-chart-aapl"></canvas>
+      </div>
+      <p>Comments: Performing well this quarter.</p>
+    </div>
+    <div class="stock-item">
+      <h2>NVDA</h2>
+      <p>Nvidia Corp</p>
+      <div class="stock-chart-container">
+        <canvas id="stock-chart-nvda"></canvas>
+      </div>
+      <p>Comments: Performing well this quarter.</p>
+    </div>
+    <div class="stock-item">
+      <h2>MSFT</h2>
+      <p>Microsoft Corp</p>
+      <div class="stock-chart-container">
+        <canvas id="stock-chart-msft"></canvas>
+      </div>
+      <p>Comments: Performing well this quarter.</p>
+    </div>
+    <div class="stock-item">
+      <h2>INTC</h2>
+      <p>Intel Corp</p>
+      <div class="stock-chart-container">
+        <canvas id="stock-chart-intc"></canvas>
+      </div>
+      <p>Comments: Performing well this quarter.</p>
+    </div>
+    <div class="stock-item">
+      <h2>GOOG</h2>
+      <p>Alphabet inc.</p>
+      <div class="stock-chart-container">
+        <canvas id="stock-chart-goog"></canvas>
+      </div>
+      <p>Comments: Performing well this quarter.</p>
+    </div>
+    <div class="stock-item">
+      <h2>AMZN</h2>
+      <p>Amazon.com inc.</p>
+      <div class="stock-chart-container">
+        <canvas id="stock-chart-amzn"></canvas>
+      </div>
+      <p>Comments: Performing well this quarter.</p>
+    </div>
+    <div class="stock-item">
+      <h2>TSLA</h2>
+      <p>Tesla inc.</p>
+      <div class="stock-chart-container">
+        <canvas id="stock-chart-tsla"></canvas>
+      </div>
+      <p>Comments: Performing well this quarter.</p>
+    </div>
+    <div class="stock-item">
+      <h2>META</h2>
+      <p>Meta Platforms inc.</p>
+      <div class="stock-chart-container">
+        <canvas id="stock-chart-meta"></canvas>
+      </div>
+      <p>Comments: Performing well this quarter.</p>
+    </div>
+    <div class="stock-item">
+      <h2>AMD</h2>
+      <p>Advanced Micro Devices inc.</p>
+      <div class="stock-chart-container">
+        <canvas id="stock-chart-amd"></canvas>
+      </div>
+      <p>Comments: Performing well this quarter.</p>
+    </div>
+    <!-- Repeat for other top stocks, with unique canvas IDs -->
+  </div>
+</div>
+{% endblock content %}

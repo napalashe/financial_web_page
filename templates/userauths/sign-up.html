@@ -1,0 +1,30 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}Sign up | Best Finance App{% endblock %}
+
+{% block content %}
+<div>
+  <h2>Sign up</h2>
+  {% if form.errors %}
+  <div class="alert alert-danger">
+    <strong>ERROR</strong>
+  </div>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <div>
+      <input type="email" id="email" placeholder="email" required>
+    </div>
+    <div>
+      <input type="password" id="password" placeholder="password" required>
+    </div>
+    <div>
+      <button type="submit">Sign up</button>
+    </div>
+  </form>
+  <p>Already have an account? <button><a href="{% url 'userauths:sign-in' %}">Login here</a></button></p>
+</div>
+</body>
+
+</html>
+{% endblock content %}
