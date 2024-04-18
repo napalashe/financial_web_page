@@ -1,0 +1,47 @@
+{% extends "partials/base.html" %} {% block content %}
+<h1>BLOG</h1>
+<<h1>Create a New Post</h1>
+<form method="post">
+    {% csrf_token %}
+    <p>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="{{ form.title.value|default_if_none:'' }}">
+        {% if form.title.errors %}
+            <span style="color: red;">{{ form.title.errors }}</span>
+        {% endif %}
+    </p>
+    <p>
+        <label for="author">Author:</label>
+        <select id="author" name="author">
+            {% for user in form.author.field.queryset %}
+            <option value="{{ user.id }}" {% if form.author.value == user.id %}selected{% endif %}>
+                {{ user.get_full_name }}
+            </option>
+            {% endfor %}
+        </select>
+        {% if form.author.errors %}
+            <span style="color: red;">{{ form.author.errors }}</span>
+        {% endif %}
+    </p>
+    <p>
+        <label for="body">Post:</label>
+        <textarea id="body" name="body">{{ form.body.value|default_if_none:'' }}</textarea>
+        {% if form.body.errors %}
+            <span style="color: red;">{{ form.body.errors }}</span>
+        {% endif %}
+    </p>
+    <button type="submit">Submit</button>
+</form>
+{% for post in posts %}
+
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="#">{{ post.author }}</a>
+      <small class="text-muted">{{ post.date_posted }}</small>
+    </div>
+    <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+    <p class="article-content">{{ post.content }}</p>
+  </div>
+</article>
+{% endfor %} {% endblock content %}
