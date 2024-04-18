@@ -9,24 +9,17 @@ User = settings.AUTH_USER_MODEL
 
 
 def register_view(request):
-    if request.method == 'POST':
-       form = UserRegisterForm(request.POST or None)
-       if form.is_valid():
-           new_user = form.save()
-           username = form.cleaned_data.get('username')
-           messages.success(request, f'Congrats on joining, {username}! Account was succesfully created!' )
-           new_user = authenticate(username = form.cleaned_data['email'], passwird = form.cleaned_data['password1'])
-           login(request, new_user)
-           return redirect('core:index')
+    if request.method =='POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Your account has been created! You are now able to log in')
+            return redirect('core:index')
     else:
         form = UserRegisterForm()
-    
-    context = {
-        'form': form,
-    }
 
-
-    return render(request, 'userauths/sign-up.html', context)
+    return render(request, 'userauths/sign-up.html', {'form': form})
 
 
 def login_view(request):

@@ -7,20 +7,41 @@
   <h2>Sign up</h2>
   {% if form.errors %}
   <div class="alert alert-danger">
-    <strong>ERROR</strong>
+    <strong>{{ form.errors }}}</strong>
+    {{ form.non_field_errors }}
   </div>
   {% endif %}
   <form method="post">
     {% csrf_token %}
     <div>
-      <input type="email" id="email" placeholder="email" required>
+      {% comment %} {{ form.username.label_tag }} {% endcomment %}
+      {{ form.username }} 
+      {% if form.username.errors %}
+          <div class="error">{{ form.username.errors }}</div>
+      {% endif %}
     </div>
     <div>
-      <input type="password" id="password" placeholder="password" required>
+      {% comment %} {{ form.email.label_tag }} {% endcomment %}
+      {{ form.email }} 
+      {% if form.email.errors %}
+          <div class="error">{{ form.email.errors }}</div>
+      {% endif %}
     </div>
     <div>
-      <button type="submit">Sign up</button>
+      {% comment %} {{ form.password1.label_tag }} {% endcomment %}
+      {{ form.password1 }} 
+      {% if form.password1.errors %}
+          <div class="error">{{ form.password1.errors }}</div>
+      {% endif %}
     </div>
+    <div>
+      {% comment %} {{ form.password2.label_tag }} {% endcomment %}
+      {{ form.password2 }} 
+      {% if form.password2.errors %}
+          <div class="error">{{ form.password2.errors }}</div>
+      {% endif %}
+    </div>
+    <button type="submit">Sign up</button>
   </form>
   <p>Already have an account? <button><a href="{% url 'userauths:sign-in' %}">Login here</a></button></p>
 </div>
