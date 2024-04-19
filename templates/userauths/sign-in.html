@@ -7,9 +7,9 @@
   <h2>Login</h2>
   {% if messages %}
   <div>
-    {% for message in messages %}
+    {% comment %} {% for message in messages %}
     <p>{{ message }}</p>
-    {% endfor %}
+    {% endfor %} {% endcomment %}
   </div>
   {% endif %}
   <form method="post">
