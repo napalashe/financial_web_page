@@ -145,3 +145,5 @@ JAZZMIN_SETTINGS = {
 }
 
 AUTH_USER_MODEL = 'userauths.User'
+
+POLYGON_API_KEY = 'UKYYppsIYfwOujEF2NfWxIs6uKxiCPwU'
