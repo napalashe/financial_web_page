@@ -1,30 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} {% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-    {% block title %}
-    {% endblock %}
-  </title>
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-
-
-<body>
-  <div class="navbar">
-    <a href="{% url 'core:index' %}">Home</a>
-    <a href="{% url 'userauths:sign-in' %}">Login</a>
-    <a href="{% url 'userauths:sign-up' %}">Sign up</a>
-    <a href="profile.html">Account</a>
-  </div>
-  {% block content %}
-  {% endblock %}
-  <script src="{% static 'js/charts.js' %}" defer></script>
-
-</body>
-
+  <body>
+    <div class="navbar">
+      <a href="{% url 'core:index' %}">Home</a>
+      <a href="{% url 'userauths:sign-in' %}">Login</a>
+      <a href="{% url 'userauths:sign-up' %}">Sign up</a>
+      <a href="{% url 'userauths:account' %}">Account</a>
+    </div>
+    {% block content %} {% endblock %}
+    <script src="{% static 'js/charts.js' %}" defer></script>
+  </body>
 </html>

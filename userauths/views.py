@@ -4,6 +4,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from .forms import UserEditForm
 
 User = settings.AUTH_USER_MODEL
 
@@ -48,6 +50,23 @@ def login_view(request):
     }
 
     return render(request, 'userauths/sign-in.html', context)
+
+@login_required
+def account_view(request):
+    return render(request, 'userauths/account.html', {'user': request.user})
+    
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('userauths:account')  
+    else:
+        form = UserEditForm(instance=request.user)
+
+    return render(request, 'userauths/edit-profile.html', {'form': form})
+
 
 def logout_view(request):
     logout(request)
