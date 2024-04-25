@@ -4,7 +4,7 @@
 <h2>FEATURES</h2>
 <ul>
   <li>
-    Updates in real time
+    Stay up to date with stock trends and analysis.
   </li>
   <li>
     Allows users to login and create profiles
