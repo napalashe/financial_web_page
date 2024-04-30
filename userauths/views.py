@@ -4,29 +4,27 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from .forms import UserEditForm
+import requests
+from django.http import JsonResponse
+
 
 User = settings.AUTH_USER_MODEL
 
 
 def register_view(request):
-    if request.method == 'POST':
-       form = UserRegisterForm(request.POST or None)
-       if form.is_valid():
-           new_user = form.save()
-           username = form.cleaned_data.get('username')
-           messages.success(request, f'Congrats on joining, {username}! Account was succesfully created!' )
-           new_user = authenticate(username = form.cleaned_data['email'], passwird = form.cleaned_data['password1'])
-           login(request, new_user)
-           return redirect('core:index')
+    if request.method =='POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Your account has been created! You are now able to log in')
+            return redirect('core:index')
     else:
         form = UserRegisterForm()
-    
-    context = {
-        'form': form,
-    }
 
-
-    return render(request, 'userauths/sign-up.html', context)
+    return render(request, 'userauths/sign-up.html', {'form': form})
 
 
 def login_view(request):
@@ -56,7 +54,35 @@ def login_view(request):
 
     return render(request, 'userauths/sign-in.html', context)
 
+@login_required
+def account_view(request):
+    return render(request, 'userauths/account.html', {'user': request.user})
+    
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('userauths:account')  
+    else:
+        form = UserEditForm(instance=request.user)
+
+    return render(request, 'userauths/edit-profile.html', {'form': form})
+
+
 def logout_view(request):
     logout(request)
     messages.success(request, 'You have successfully logged out!')
     return redirect('userauths:sign-in')
+
+
+def get_stock_data(request):
+    api_key = settings.POLYGON_API_KEY  # Ensure you have this in your settings
+    ticker = "AAPL"  # Example ticker symbol, this could be dynamic based on user input
+    url = f"https://api.polygon.io/v2/aggs/ticker/{ticker}/range/1/day/2023-01-09/2023-01-09?apiKey={settings.POLYGON_API_KEY}"
+
+    response = requests.get(url)
+    data = response.json()
+
+    return JsonResponse(data)

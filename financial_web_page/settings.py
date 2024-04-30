@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'blog',
     'userauths',
     'jazzmin',
     'core',
@@ -144,3 +145,6 @@ JAZZMIN_SETTINGS = {
 }
 
 AUTH_USER_MODEL = 'userauths.User'
+
+POLYGON_API_KEY = 'NabMWseSSi0Bwn1EXolyoRGVUjg4hB22'
+

@@ -2,29 +2,27 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-    {% block title %}
-    {% endblock %}
-  </title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %} {% endblock %}</title>
   {% load static %}
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
+<!--I added these links, [logout, blog,] just so I didnt have to keep typing
+  them in -->
 
 <body>
   <div class="navbar">
     <a href="{% url 'core:index' %}">Home</a>
     <a href="{% url 'userauths:sign-in' %}">Login</a>
     <a href="{% url 'userauths:sign-up' %}">Sign up</a>
-    <a href="profile.html">Account</a>
+    <a href="{% url 'userauths:account' %}">Account</a>
+    <a href="{% url 'blog:blog-home' %}">Blog</a>
+    <a href="{% url 'userauths:logout' %}">Logout</a>
   </div>
-  {% block content %}
-  {% endblock %}
-  <script src="{% static 'js/charts.js' %}" defer></script>
-
+  {% block content %} {% endblock %}
+  <script src="{% static 'js/charts-2.js' %}" defer></script>
 </body>
 
 </html>
