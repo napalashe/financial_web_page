@@ -43,6 +43,7 @@
         <li><strong>Jazzmin</strong>: Django theme for a better admin interface.</li>
         <li><strong>Python 3.0</strong> or higher.</li>
         <li><strong>Polygon API Client</strong>: To interact with real-time financial data from Polygon.io.</li>
+        <li><strong>Live server extension on whatever IDE you use.</li>
     </ul>
 
   <h3>Installation Commands</h3>
@@ -55,6 +56,14 @@
   
   pip install polygon-api-client
     </pre>
+
+<h2>How To start running this</h2>
+<p>To run this on your local machine and you hvae installed the following dependencies please enter the following commands in the terminal:</p>
+<pre> python3 manage.py runserver </pre>
+<p>This will start the live server and allow you to run on localhost and view the webpage.</p>
+<h2>Lastly, you will need a polygon API key (free) in order to gather data</h2>
+<p>In the settings.py file in the financial_web_page directory, scroll down to the bottom and add your own key to </p>
+<pre>POLYGON_API_KEY = "{YOUR KEY HERE}"</pre>
 
 </body>
 </html>
