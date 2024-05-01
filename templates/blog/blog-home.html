@@ -1,17 +1,70 @@
 {% extends "partials/base.html" %} {% block content %}
-<div class="container mt-4">
+<div class="container">
   <h1>Blog Posts</h1>
   {% for post in posts %}
-  <div class="card mb-4">
-    <div class="card-body">
-      <h5 class="card-title">{{ post.title }}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">
+  <div class="post-card">
+    <div class="post-header">
+      <h5 class="post-title">{{ post.title }}</h5>
+      <h6 class="post-subtitle">
         Posted by {{ post.author.username }} on {{ post.created_at }}
       </h6>
-      <p class="card-text">{{ post.body }}</p>
     </div>
+    <p class="post-text">{{ post.body }}</p>
   </div>
   {% endfor %}
+  <div class="create-post-link">
+    <a href="{% url 'blog:create-blog' %}">Create your own post!</a>
+  </div>
 </div>
-<a href="{% url 'blog:create-blog' %}">Create your own post!</a>
+
+<style>
+  .container {
+    width: 80%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  h1 {
+    color: #333;
+  }
+  .post-card {
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  .post-header {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e3e6ea;
+  }
+  .post-title {
+    color: #4cae4c; /* Green color for post titles */
+    font-size: 30px;
+  }
+  .post-subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  .post-text {
+    font-size: 16px;
+    color: #444;
+  }
+  .create-post-link a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4cae4c;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  .create-post-link a:hover {
+    background-color: #369036;
+  }
+</style>
+
 {% endblock %}

@@ -23,6 +23,6 @@ def get_ticker_data(tickers):
     return results
 
 def home_page(request):
-    tickers = ['AAPL', 'GOOG', 'MSFT','TSLA']
+    tickers = ['AAPL', 'GOOG', 'MSFT']
     ticker_data = get_ticker_data(tickers)
     return render(request, 'core/ticker.html', {'ticker_data': ticker_data})

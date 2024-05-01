@@ -1,20 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Ticker Data</title>
-  </head>
-  <body>
-    <h1>Stock Data</h1>
+{% extends "partials/base.html" %} {% block content %}
+<link rel="stylesheet" href="static/css/styles.css" />
+<div class="container">
+  <h1>Personalized Stock Portfolio</h1>
+  <div class="stocks-grid">
     {% for ticker, data in ticker_data.items %}
-    <h2>{{ ticker }}</h2>
-    {% if data.results %}
-    <p>Open: {{ data.results.0.o }}</p>
-    <p>Close: {{ data.results.0.c }}</p>
-    <p>High: {{ data.results.0.h }}</p>
-    <p>Low: {{ data.results.0.l }}</p>
-    {% else %}
-    <p>Error fetching data: {{ data.error }}</p>
-    {% endif %} {% endfor %}
-  </body>
-</html>
+    <div class="stock-item">
+      <h2>{{ ticker }}</h2>
+      <p class="current-date">{% now "F j, Y" %}</p>
+      {% if data.results %}
+      <canvas id="chart-{{ ticker }}" class="canvas"></canvas>
+      {% else %}
+      <p>Error fetching data: {{ data.error }}</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    {% for ticker, data in ticker_data.items %}
+      var results = {{ data.results|safe }};
+      if (results && results.length > 0) {
+        var ctx = document.getElementById('chart-{{ ticker }}').getContext('2d');
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ["Open", "Close"],
+            datasets: [{
+              label: '{{ ticker }} Price Movement',
+              data: [results[0].o, results[0].c],
+              borderColor: 'rgb(75, 192, 192)',
+              borderWidth: 2,
+              fill: false,
+              tension: 0.4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: false,
+                title: {
+                  display: true,
+                  text: 'USD'
+                }
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: 'Market Day'
+                }
+              }
+            }
+          }
+        });
+      }
+    {% endfor %}
+  });
+</script>
+
+<style>
+  .container {
+    width: 100%;
+    max-width: 1280px; /* Max width of the container */
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background: white;
+    font-family: Arial, sans-serif;
+  }
+  h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .canvas {
+    max-width: 400px;
+    max-height: 250px;
+    width: 100%;
+    height: auto;
+  }
+
+  h2,
+  p {
+    margin-bottom: 5px;
+  }
+  .current-date {
+    font-size: 14px;
+    color: #666;
+  }
+</style>
+
+{% endblock content %}
