@@ -6,8 +6,18 @@ from .forms import PostForm
 from django.contrib import messages
 
 def blog_list(request):
-        posts = Post.objects.all().order_by('-created_at')
-        return render(request, 'blog/blog-home.html',{'posts': posts})
+    if request.method == 'POST' and 'delete_post' in request.POST:
+        post_id = request.POST.get('delete_post')
+        post = get_object_or_404(Post, id=post_id)
+        if request.user == post.author:
+            post.delete()
+            messages.success(request, "Post deleted successfully.")
+        else:
+            messages.error(request, "You are not authorized to delete this post.")
+        return redirect('blog:blog-home')
+
+    posts = Post.objects.all().order_by('-created_at')
+    return render(request, 'blog/blog-home.html', {'posts': posts})
 
 
 
@@ -23,3 +33,4 @@ def create_post(request):
     else:
         form = PostForm()
     return render(request, 'blog/create-blog.html', {'form': form})
+

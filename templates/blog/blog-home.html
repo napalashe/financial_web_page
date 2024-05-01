@@ -8,6 +8,24 @@
       <h6 class="post-subtitle">
         Posted by {{ post.author.username }} on {{ post.created_at }}
       </h6>
+      {% if request.user == post.author %}
+      <div class="post-options">
+        <button class="options-button" onclick="toggleMenu(this)">...</button>
+        <div class="options-menu">
+          <form method="POST" action="" style="display: block">
+            {% csrf_token %}
+            <button
+              type="submit"
+              name="delete_post"
+              value="{{ post.id }}"
+              class="delete-post-button"
+            >
+              Delete
+            </button>
+          </form>
+        </div>
+      </div>
+      {% endif %}
     </div>
     <p class="post-text">{{ post.body }}</p>
   </div>
@@ -65,6 +83,45 @@
   .create-post-link a:hover {
     background-color: #369036;
   }
+  .options-menu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    padding: 5px;
+    z-index: 100;
+    right: 0;
+  }
+  .options-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: normal;
+    display: inline-block;
+  }
+  .delete-post-button {
+    padding: 5px 10px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .delete-post-button:hover {
+    background-color: #cc4f39;
+  }
 </style>
 
+<script>
+  function toggleMenu(element) {
+    const menu = element.nextElementSibling;
+    if (menu.style.display === "block") {
+      menu.style.display = "none";
+    } else {
+      menu.style.display = "block";
+    }
+  }
+</script>
 {% endblock %}
